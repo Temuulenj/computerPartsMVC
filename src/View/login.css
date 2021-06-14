@@ -1,0 +1,17 @@
+.text-field{
+    -fx-border-color: rgba(89,98,249,0.2);
+    -fx-border-radius: 50px;
+    -fx-background-color: rgba(0,0,0,0);
+}
+.text-field:hover,.text-field:focused{
+    -fx-border-color: rgba(89,98,249,1);
+}
+
+.button{
+    -fx-background-color: rgba(89,98,249,0.2);
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+}
+.button:hover,.button:focused{
+    -fx-background-color: rgba(89,98,249,1);
+}

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AdminController">
+   <children>
+      <TabPane minHeight="712.8" minWidth="1267.2" prefHeight="712.8" prefWidth="1267.2" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="库存管理">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@admin.css">
+                     <children>
+                        <TextField fx:id="p1_id" layoutX="351.0" layoutY="557.0" prefHeight="30.0" prefWidth="145.0" stylesheets="@admin.css" />
+                        <TextField fx:id="p1_name" layoutX="500.0" layoutY="557.0" prefHeight="30.0" prefWidth="145.0" stylesheets="@admin.css" />
+                        <TextField fx:id="p1_unitPrise" layoutX="651.0" layoutY="557.0" prefHeight="30.0" prefWidth="145.0" stylesheets="@admin.css" />
+                        <TextField fx:id="p1_num" layoutX="804.0" layoutY="557.0" prefHeight="30.0" prefWidth="145.0" stylesheets="@admin.css" />
+                        <Button layoutX="1105.0" layoutY="557.0" mnemonicParsing="false" onAction="#insert" prefHeight="30.0" prefWidth="145.0" stylesheets="@admin.css" text="入库" />
+                        <TextArea id="result" fx:id="p1_result" editable="false" layoutX="14.0" layoutY="19.0" prefHeight="641.0" prefWidth="319.0" stylesheets="@admin.css" />
+                        <ComboBox fx:id="p1_sort" layoutX="954.0" layoutY="557.0" prefHeight="30.0" prefWidth="145.0" promptText="-" stylesheets="@admin.css" />
+                        <TableView fx:id="table" layoutX="345.0" layoutY="22.0" prefHeight="515.0" prefWidth="910.0" stylesheets="@admin.css">
+                          <columns>
+                            <TableColumn fx:id="c_id" prefWidth="75.0" text="商品编号" />
+                            <TableColumn fx:id="c_name" onEditCommit="#update" prefWidth="75.0" text="商品名称" />
+                              <TableColumn fx:id="c_unitPrise" prefWidth="75.0" text="商品单价" />
+                              <TableColumn fx:id="c_amount" prefWidth="75.0" text="库存" />
+                              <TableColumn fx:id="c_sort" onEditCommit="#update" prefWidth="75.0" text="商品类型" />
+                              <TableColumn id="Del" fx:id="Del" prefWidth="75.0" text="删除" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                        <ComboBox fx:id="o_sort" layoutX="393.0" layoutY="613.0" prefWidth="150.0" promptText="-" stylesheets="@admin.css" />
+                        <TextField fx:id="o_value" layoutX="600.0" layoutY="613.0" />
+                        <Button layoutX="1109.0" layoutY="613.0" mnemonicParsing="false" onAction="#Out" prefHeight="30.0" prefWidth="143.0" stylesheets="@admin.css" text="出库" />
+                        <Text layoutX="348.0" layoutY="634.0" strokeType="OUTSIDE" strokeWidth="0.0" text="类型：" />
+                        <Text layoutX="570.0" layoutY="634.0" strokeType="OUTSIDE" strokeWidth="0.0" text="值：" />
+                        <Text layoutX="825.0" layoutY="634.0" strokeType="OUTSIDE" strokeWidth="0.0" text="数量：" />
+                        <TextField fx:id="o_amount" layoutX="874.0" layoutY="613.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
