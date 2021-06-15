@@ -1,5 +1,6 @@
 package DAO;
 
+import Model.Person;
 import Model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,5 +35,30 @@ public class UserDAO extends DAO{
             return -1;
         }
         return rs.getInt("Identity");
+    }
+
+    public ObservableList<Person> getData() throws Exception{
+        ObservableList<Person> data=FXCollections.observableArrayList();
+        conn=getConn();
+        SQL="SELECT username, password, identity FROM user";
+        preStr=conn.prepareStatement(SQL);
+        rs=preStr.executeQuery();
+        while (rs.next()){
+            data.add(new Person(rs.getString(1),rs.getString(2),rs.getInt(3)));
+        }
+        return data;
+    }
+
+    public boolean Delete(String user){
+        conn=getConn();
+        SQL="DELETE FROM user WHERE UserName=?";
+        try {
+            preStr=conn.prepareStatement(SQL);
+            preStr.setString(1,user);
+            return !preStr.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 }

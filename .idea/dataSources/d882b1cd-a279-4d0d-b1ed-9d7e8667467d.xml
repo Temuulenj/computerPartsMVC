@@ -1031,7 +1031,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <column id="296" parent="287" name="Identity">
       <Position>3</Position>
       <Comment>1-&gt;管理员 0-&gt;普通用户</Comment>
-      <DataType>bit(1)|0s</DataType>
+      <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
     </column>
     <key id="297" parent="287" name="PRIMARY">

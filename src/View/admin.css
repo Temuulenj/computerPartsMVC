@@ -11,10 +11,16 @@
 }
 .combo-box{
     -fx-background-radius: 4;
-    -fx-border-color: blue;
 }
 .table-view{
+    -fx-text-alignment: center;
+}
 
+#Del{
+    -fx-alignment: center;
+}
+#u_delete{
+    -fx-alignment: center;
 }
 .button{
     -fx-background-color: rgba(89,98,249,0.2);
