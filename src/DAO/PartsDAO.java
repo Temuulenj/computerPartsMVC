@@ -22,7 +22,7 @@ public class PartsDAO extends DAO {
     }
 
     public boolean Delete(int id){
-        if(haveId(id)==false){
+        if(!haveId(id)){
             System.out.println("数据不存在");
             return false;
         }
@@ -78,7 +78,7 @@ public class PartsDAO extends DAO {
             preStr=conn.prepareStatement(SQL);
             preStr.setInt(1,id);
             rs=preStr.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 return new Parts(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getString(5));
             }
         } catch (SQLException throwables) {
@@ -99,16 +99,16 @@ public class PartsDAO extends DAO {
         }
         return false;
     }
-    public boolean haveName(String name){
-        SQL="SELECT NAME FROM parts WHERE ID=?";
-        try {
-            preStr=conn.prepareStatement(SQL);
-            preStr.setString(1,name);
-            rs= preStr.executeQuery();
-            return rs.next();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return false;
-    }
+//    public boolean haveName(String name){
+//        SQL="SELECT NAME FROM parts WHERE ID=?";
+//        try {
+//            preStr=conn.prepareStatement(SQL);
+//            preStr.setString(1,name);
+//            rs= preStr.executeQuery();
+//            return rs.next();
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+//        return false;
+//    }
 }

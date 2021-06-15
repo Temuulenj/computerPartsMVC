@@ -20,22 +20,27 @@ public class Parts {
         this.sort = sort;
     }
 
-    public boolean Insert(){
+    public String Insert(){
         PartsDAO pd=new PartsDAO();
         if (pd.haveId(id)){
             Parts p=new PartsDAO().getParts(id);
-            if(name.equals(p.name)) {
+            if(!name.equals(p.name)||!sort.equals(p.sort)) {
+                return "商品信息与库存信息不符，请核对后重新输入！\n库存信息：\n商品名称："+p.name+"  商品类型:"+p.sort+"\n";
+            }
+            else {
                 this.amount = p.amount+amount;
                 this.sort = p.sort;
             }
-            else {
-                System.out.println("商品名称与库存名称不符");
-                System.out.println("库存名称："+p.name);
-                return false;
+            if(pd.Update(this)){
+                return "入库成功！\n";
             }
-            return pd.Update(this);
         }
-        return pd.Insert(this);
+        if(pd.Insert(this)){
+            return "入库成功！\n";
+        }
+        else {
+            return "入库失败！\n";
+        }
     }
 
 

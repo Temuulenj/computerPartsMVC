@@ -16,6 +16,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -28,7 +29,6 @@ public class AdminController {
     public TextField p1_name;
     public TextField p1_num;
     public TextField p1_unitPrise;
-    public TextArea p1_result;
     public TableView<Parts> table;
     public  TableColumn c_id;
     public TableColumn c_name;
@@ -40,10 +40,15 @@ public class AdminController {
     public ComboBox o_sort;
     public TextField o_value;
     public TextField o_amount;
+    String admin=null;
+    public ListView<String> lv=new ListView<>();
     ObservableList<Parts> data=null;
+    ObservableList<String> result = FXCollections.observableArrayList();
+    SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
     //初始化
     @FXML
     private void initialize(){
+
         p1_sort.setItems(FXCollections.observableArrayList("CPU", "显卡", "内存","主板","硬盘"));
         o_sort.setItems(FXCollections.observableArrayList("编号"));
         data = new Parts().getData();
@@ -72,7 +77,6 @@ public class AdminController {
         c_sort.setCellFactory(TextFieldTableCell.forTableColumn());
         Del.setCellFactory((col)->{
                     TableCell<Parts, String> cell = new TableCell<Parts, String>(){
-
                         @Override
                         public void updateItem(String item, boolean empty) {
                             super.updateItem(item, empty);
@@ -85,8 +89,10 @@ public class AdminController {
                             button2.setOnMouseClicked((col) -> {
                                 //获取list列表中的位置，进而获取列表对应的信息数据
                                 Parts p = data.get(getIndex());
-                                p1_result.setText(p.Delete()+"\n");
-                                data.remove(getIndex());
+                                if(p.Delete()) {
+                                    result.add(ft.format(new Date())+"\n删除成功！\n");
+                                    data.remove(getIndex());
+                                }
                             });
                             if (empty) {
                                 //如果此列为空默认不添加元素
@@ -97,15 +103,12 @@ public class AdminController {
                                 this.setGraphic(button2);
                             }
                         }
-
-
-
                     };
                     return cell;
                 }
         );
+        lv.setItems(result);
     }
-
     //刷新
     public void Refresh() {
         data = new Parts().getData();
@@ -131,6 +134,7 @@ public class AdminController {
             Scene scene = new Scene(root);
             main.setTitle("Admin");
             main.setScene(scene);
+            main.getIcons().add(new Image("View/img/icon.png"));
             Main.closeStage();
             main.show();
         } catch (Exception e) {
@@ -139,7 +143,6 @@ public class AdminController {
     }
 
     public void insert(ActionEvent actionEvent) {
-        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
         if(p1_id.getText().length()<1||p1_name.getText().length()<1||p1_num.getText().length()<1||p1_sort.getValue()==null){
             Alert a=new Alert(Alert.AlertType.ERROR);
             a.setTitle("错 误");
@@ -149,12 +152,13 @@ public class AdminController {
             return;
         }
         Parts p=new Parts(Integer.parseInt(p1_id.getText()),p1_name.getText(),Integer.parseInt(p1_unitPrise.getText()),Integer.parseInt(p1_num.getText()),p1_sort.getValue().toString());
-        if(p.Insert()){
+        String inResult=p.Insert();
+        if(inResult.equals("入库成功！\n")){
             p=new PartsDAO().getParts(p.getId());
-            p1_result.setText(p1_result.getText()+ft.format(new Date())+"添加成功:"+p.getId()+p.getName()+" "+p.getUnitPrise()+" "+p.getAmount()+" "+p.getSort()+"\n");
+            result.add(ft.format(new Date())+"\n 入库成功!\n"+p.getId()+p.getName()+" "+p.getUnitPrise()+" "+p.getAmount()+" "+p.getSort()+"\n");
         }
         else{
-            p1_result.setText(p1_result.getText()+ft.format(new Date())+"\n添加失败");
+            result.add(ft.format(new Date())+"\n"+inResult);
         }
         Refresh();
     }
