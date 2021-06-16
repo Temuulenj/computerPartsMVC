@@ -1,6 +1,5 @@
 package Controller;
 
-import Model.Main;
 import Model.Parts;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

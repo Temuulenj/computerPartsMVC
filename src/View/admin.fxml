@@ -21,7 +21,7 @@
                         <TextField fx:id="p1_num" layoutX="804.0" layoutY="557.0" prefHeight="30.0" prefWidth="145.0" stylesheets="@admin.css" />
                         <ComboBox fx:id="p1_sort" layoutX="954.0" layoutY="557.0" prefHeight="30.0" prefWidth="145.0" promptText="-" stylesheets="@admin.css" />
                         <Button layoutX="1105.0" layoutY="557.0" mnemonicParsing="false" onAction="#insert" prefHeight="30.0" prefWidth="145.0" stylesheets="@admin.css" text="入库" />
-                        <TableView fx:id="table" layoutX="345.0" layoutY="22.0" prefHeight="515.0" prefWidth="910.0" stylesheets="@admin.css">
+                        <TableView fx:id="table" layoutX="345.0" layoutY="22.0" prefHeight="515.0" prefWidth="910.0" style="-fx-background-color: rgba(0,0,0,0);" stylesheets="@admin.css">
                           <columns>
                             <TableColumn fx:id="c_id" prefWidth="75.0" text="商品编号" />
                             <TableColumn fx:id="c_name" onEditCommit="#update" prefWidth="75.0" text="商品名称" />

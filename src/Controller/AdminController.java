@@ -1,8 +1,6 @@
 package Controller;
 
 import DAO.PartsDAO;
-import DAO.UserDAO;
-import Model.Main;
 import Model.Parts;
 import Model.Person;
 import javafx.collections.FXCollections;
@@ -10,17 +8,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -103,8 +98,6 @@ public class AdminController extends Controller{
                             //按钮显示文字
                             Button button2 = new Button("删除");
                             Del.setStyle("-fx-text-align-:center");
-                            //设置按钮颜色
-                            button2.setStyle("-fx-background-color: #00bcff;-fx-text-fill: #ffffff;");
                             //按钮点击事件
                             button2.setOnMouseClicked((col) -> {
                                 //获取list列表中的位置，进而获取列表对应的信息数据
@@ -141,7 +134,6 @@ public class AdminController extends Controller{
                             Button button2 = new Button("删除");
                             Del.setStyle("-fx-text-align-:center");
                             //设置按钮颜色
-                            button2.setStyle("-fx-background-color: #00bcff;-fx-text-fill: #ffffff;");
                             //按钮点击事件
                             button2.setOnMouseClicked((col) -> {
                                 //获取list列表中的位置，进而获取列表对应的信息数据
