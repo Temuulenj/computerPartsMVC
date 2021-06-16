@@ -4,6 +4,7 @@ import Model.Main;
 import Model.Person;
 import Model.User;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,8 +12,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class login extends Controller{
@@ -20,7 +24,46 @@ public class login extends Controller{
     public TextField UserName;
     public PasswordField Password;
     public Button Login;
-    public void Login(ActionEvent actionEvent) {
+    public Button logup;
+    public Button add;
+    @FXML
+    private void initialize(){
+        logup.setOnAction(event -> {
+            Login.setVisible(false);
+            Login.setDisable(false);
+            add.setVisible(true);
+            add.setOnAction(e->{
+                if(UserName.getText()!=null&&Password.getText()!=null) {
+                    if (new Person(UserName.getText(), Password.getText(), 0).add()) {
+                        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                        a.setTitle("系统消息");
+                        a.setHeaderText("注册成功！");
+                        a.show();
+                    }
+                    else {
+                        Alert a=new Alert(Alert.AlertType.ERROR);
+                        a.setTitle("系统消息");
+                        a.setHeaderText("注册失败");
+                        a.setContentText("该用户名已被注册");
+                        a.show();
+                    }
+                }
+                else{
+                    System.out.println("输入不能为空");
+                    return;
+                }
+            });
+        });
+        Login.setOnAction(event -> {
+            Login();
+        });
+        Password.setOnAction(event -> {
+            Login();
+        });
+    }
+
+    public void Login()
+    {
         Person p=new Person();
         if (UserName.getText().length()<1||Password.getText().length()<1){
             Alert a=new Alert(Alert.AlertType.ERROR);

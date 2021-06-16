@@ -26,6 +26,10 @@ public class Person {
         return null;
     }
 
+    public boolean add(){
+        return new UserDAO().addUser(this);
+    }
+
     public boolean Delete(){
         return new UserDAO().Delete(this.userName);
     }

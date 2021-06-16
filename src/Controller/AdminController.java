@@ -26,7 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
-public class AdminController {
+public class AdminController extends Controller{
     public TextField p1_id;
     public TextField p1_name;
     public TextField p1_num;
@@ -50,6 +50,9 @@ public class AdminController {
 
     //消息队列
     public ListView<String> lv=new ListView<>();
+    public TextField a_username;
+    public TextField a_password;
+    public ComboBox a_identity;
     ObservableList<Parts> data=null;
     ObservableList<String> result = FXCollections.observableArrayList();
     ObservableList<Person> user=new Person().getData();
@@ -62,9 +65,10 @@ public class AdminController {
         p1_sort.setItems(FXCollections.observableArrayList("CPU", "显卡", "内存","主板","硬盘"));
         //出库类型
         o_sort.setItems(FXCollections.observableArrayList("编号"));
+        //身份选择
+        a_identity.setItems(FXCollections.observableArrayList("管理员","用户"));
         //消息
         lv.setItems(result);
-
 
         data = new Parts().getData();
         if(data==null || data.size() == 0) {
@@ -257,5 +261,16 @@ public class AdminController {
             a.show();
         };
         Refresh();
+    }
+
+    public void addUser(ActionEvent actionEvent) {
+        if(a_username.getText()!=null||a_password.getText()!=null||a_identity.getValue()!=null){
+            int identity=a_identity.getValue().toString().equals("管理员")?1:0;
+            System.out.println(new Person(a_username.getText(),a_password.getText(),identity).add());
+            uRefresh();
+        }
+        else {
+            System.out.println("输入不全！");
+        }
     }
 }

@@ -15,6 +15,19 @@ public class UserDAO extends DAO{
     Connection conn=getConn();
     User u=new User();
 
+    public boolean haveUsername(String username){
+        try {
+            conn=getConn();
+            SQL="SELECT UserName FROM user WHERE UserName=?";
+            preStr=conn.prepareStatement(SQL);
+            preStr.setString(1,username);
+            rs=preStr.executeQuery();
+            return rs.next();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
     public String getPassword(String username) throws Exception{
         SQL = "SELECT Password FROM user  WHERE UserName= ? ";
         preStr = conn.prepareStatement(SQL);
@@ -35,6 +48,25 @@ public class UserDAO extends DAO{
             return -1;
         }
         return rs.getInt("Identity");
+    }
+
+    public boolean addUser(Person p){
+        if(haveUsername(p.getUserName())) {
+            System.out.println("用户名已存在！");
+            return false;
+        }
+        conn=getConn();
+        SQL="INSERT INTO user VALUES (?,?,?)";
+        try {
+            preStr=conn.prepareStatement(SQL);
+            preStr.setString(1,p.getUserName());
+            preStr.setString(2,p.getPassword());
+            preStr.setInt(3,p.getIdentity());
+            return !preStr.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 
     public ObservableList<Person> getData() throws Exception{

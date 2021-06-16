@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AdminController">
    <children>
-      <TabPane minHeight="712.8" minWidth="1267.2" prefHeight="712.8" prefWidth="1267.2" stylesheets="@admin.css" tabClosingPolicy="UNAVAILABLE">
+      <TabPane minHeight="712.8" minWidth="1267.2" prefHeight="712.8" prefWidth="1267.2" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="库存管理">
                <content>
@@ -48,9 +48,9 @@
             </Tab>
             <Tab text="用户管理">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" stylesheets="@admin.css" prefHeight="180.0" prefWidth="200.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="u_table" layoutX="404.0" layoutY="19.0" prefHeight="504.0" prefWidth="843.0">
+                        <TableView fx:id="u_table" layoutX="404.0" layoutY="19.0" prefHeight="504.0" prefWidth="843.0" stylesheets="@admin.css">
                           <columns>
                             <TableColumn fx:id="u_user" prefWidth="75.0" text="用户名" />
                             <TableColumn fx:id="u_password" prefWidth="75.0" text="密码" />
@@ -61,6 +61,10 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
+                        <TextField fx:id="a_username" layoutX="404.0" layoutY="567.0" stylesheets="@admin.css" />
+                        <TextField fx:id="a_password" layoutX="615.0" layoutY="567.0" stylesheets="@admin.css" />
+                        <ComboBox fx:id="a_identity" layoutX="826.0" layoutY="567.0" prefWidth="150.0" stylesheets="@admin.css" />
+                        <Button layoutX="988.0" layoutY="567.0" mnemonicParsing="false" onAction="#addUser" prefHeight="30.0" prefWidth="78.0" stylesheets="@admin.css" text="添 加" />
                      </children>
                   </AnchorPane>
               </content>
