@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.UserController">
    <children>
-      <TableView fx:id="table" prefHeight="302.0" prefWidth="600.0">
+      <TableView fx:id="table" prefHeight="351.0" prefWidth="600.0">
         <columns>
           <TableColumn fx:id="c_id" prefWidth="75.0" text="编号" />
           <TableColumn fx:id="c_name" prefWidth="75.0" text="名称" />
@@ -20,8 +17,6 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button fx:id="editable" layoutX="55.0" layoutY="322.0" mnemonicParsing="false" onAction="#Editable" text="编辑" />
-      <Button layoutX="131.0" layoutY="322.0" mnemonicParsing="false" onAction="#Refresh" text="刷新" />
-      <Button layoutX="202.0" layoutY="322.0" mnemonicParsing="false" onAction="#Save" text="保存" />
+      <Button layoutX="153.0" layoutY="360.0" mnemonicParsing="false" fx:id="Refresh" prefHeight="30.0" prefWidth="294.0" text="刷新" />
    </children>
 </AnchorPane>

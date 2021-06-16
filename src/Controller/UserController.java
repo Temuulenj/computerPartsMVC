@@ -1,10 +1,8 @@
 package Controller;
 
-import DAO.PartsDAO;
 import Model.Main;
 import Model.Parts;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,23 +12,22 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Stage;
 
 import java.util.Objects;
 
 public class UserController extends Controller{
-    public TableView table;
-    public  TableColumn c_id;
-    public TableColumn c_name;
-    public TableColumn c_unitPrise;
-    public TableColumn c_amount;
-    public TableColumn c_sort;
-    public Button editable;
+    public TableView<Parts> table;
+    public  TableColumn<Parts,String> c_id;
+    public TableColumn<Parts,String> c_name;
+    public TableColumn<Parts,String> c_unitPrise;
+    public TableColumn<Parts,String> c_amount;
+    public TableColumn<Parts,String> c_sort;
+    public Button Refresh;
 
     ObservableList<Parts> data=null;
     void init(){
-        Parent root = null;
+        Parent root;
         try {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/View/user.fxml")));
             Stage main=new Stage();
@@ -40,9 +37,8 @@ public class UserController extends Controller{
             Main.closeStage();
             main.show();
             table.refresh();
-        } catch (NullPointerException e){
-            System.out.println("空");
-        }catch (Exception e) {
+        }catch (NullPointerException e){ }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -69,34 +65,6 @@ public class UserController extends Controller{
         // 设置数据源
         c_sort.setCellValueFactory(new PropertyValueFactory<>("sort"));
         table.setItems(data);
-    }
-
-    public void Editable(ActionEvent actionEvent) {
-        table.setEditable(!table.isEditable());
-        c_name.setCellFactory(TextFieldTableCell.forTableColumn());
-        editable.setText(table.isEditable()?"可编辑":"不可编辑");
-    }
-
-    public void Refresh(ActionEvent actionEvent) {
-        ObservableList<Parts> data = new Parts().getData();
-        table.setItems(data);
-        // 设置分箱的类下面的属性名
-        c_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-
-        c_name.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-        c_unitPrise.setCellValueFactory(new PropertyValueFactory<>("unitPrise"));
-
-        c_amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        // 设置数据源
-        c_sort.setCellValueFactory(new PropertyValueFactory<>("sort"));
-        table.setItems(data);
-    }
-
-    public void Save(ActionEvent actionEvent) {
-        for(int i=0;i<data.size();i++){
-            Parts p=data.get(i);
-            System.out.println(p.getName());
-        }
+        Refresh.setOnAction(event -> initialize());
     }
 }

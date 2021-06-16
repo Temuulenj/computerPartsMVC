@@ -1,13 +1,7 @@
 package Controller;
 
-import Model.Main;
 import Model.Person;
-import Model.User;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -19,45 +13,66 @@ public class login extends Controller{
     public PasswordField Password;
     public Button Login;
     public Button logup;
-    public Button add;
+    public Button back;
+
     @FXML
     private void initialize(){
-        logup.setOnAction(event -> {
-            Login.setVisible(false);
-            Login.setDisable(false);
-            add.setVisible(true);
-            add.setOnAction(e->{
-                if(UserName.getText()!=null&&Password.getText()!=null) {
-                    if (new Person(UserName.getText(), Password.getText(), 0).add()) {
-                        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-                        a.setTitle("系统消息");
-                        a.setHeaderText("注册成功！");
-                        a.show();
-                    }
-                    else {
-                        Alert a=new Alert(Alert.AlertType.ERROR);
-                        a.setTitle("系统消息");
-                        a.setHeaderText("注册失败");
-                        a.setContentText("该用户名已被注册");
-                        a.show();
-                    }
-                }
-                else{
-                    System.out.println("输入不能为空");
-                    return;
-                }
-            });
-        });
+        logup.setOnAction(event -> Logup());
         Login.setOnAction(event -> {
-            Login();
+            if(Login.getText().equals("登            录")) {
+                Login();
+            }
+            else {
+                Logup();
+            }
         });
         Password.setOnAction(event -> {
-            Login();
+            if(Login.getText().equals("登            录")) {
+                Login();
+            }
+            else {
+                Logup();
+            }
+        });
+        logup.setOnAction(e->{
+            Login.setText("注            册");
+            logup.setVisible(false);
+            logup.setDisable(true);
+            back.setDisable(false);
+            back.setVisible(true);
+        });
+        back.setOnAction(event -> {
+            Login.setText("登            录");
+            back.setDisable(true);
+            back.setVisible(false);
+            logup.setVisible(true);
+            logup.setDisable(false);
         });
     }
 
-    public void Login()
-    {
+    public void Logup(){
+        if (UserName.getText().length()<1&& Password.getText().length()<1) {
+            Alert a=new Alert(Alert.AlertType.WARNING);
+            a.setTitle("系统消息");
+            a.setHeaderText("输入为空");
+            a.show();
+        } else {
+            if (new Person(UserName.getText(), Password.getText(), 0).add()) {
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                a.setTitle("系统消息");
+                a.setHeaderText("注册成功！");
+                a.show();
+            } else {
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setTitle("系统消息");
+                a.setHeaderText("注册失败");
+                a.setContentText("该用户名已被注册");
+                a.show();
+            }
+        }
+    }
+
+    public void Login() {
         Person p=new Person();
         if (UserName.getText().length()<1||Password.getText().length()<1){
             Alert a=new Alert(Alert.AlertType.ERROR);

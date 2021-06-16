@@ -6,7 +6,9 @@
 .text-field:hover,.text-field:focused{
     -fx-border-color: rgba(89,98,249,1);
 }
-
+#logup:hover,#back:hover{
+    -fx-translate-x:50px;
+}
 .button{
     -fx-background-color: rgba(89,98,249,0.2);
     -fx-border-radius: 50px;
