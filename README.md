@@ -46,9 +46,7 @@ create database partsdata;
 ```mysql
 use partsdata;
 ```
-
 库存表
-
 ```mysql 
 create table parts(
 ID int not null primary key auto_increment,
@@ -59,7 +57,6 @@ SORT varchar(255) not null);
 ```
 
 用户表
-
 ```mysql
 create table user(
 USERNAME varchar(20) not null primary key auto_increment,

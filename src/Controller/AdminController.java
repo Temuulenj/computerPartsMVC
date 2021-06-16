@@ -53,6 +53,9 @@ public class AdminController extends Controller{
     public TextField a_username;
     public TextField a_password;
     public ComboBox a_identity;
+    public ListView u_lv;
+
+    ObservableList<String> uResult=FXCollections.observableArrayList();
     ObservableList<Parts> data=null;
     ObservableList<String> result = FXCollections.observableArrayList();
     ObservableList<Person> user=new Person().getData();
@@ -69,7 +72,8 @@ public class AdminController extends Controller{
         a_identity.setItems(FXCollections.observableArrayList("管理员","用户"));
         //消息
         lv.setItems(result);
-
+        //用户消息
+        u_lv.setItems(uResult);
         data = new Parts().getData();
         if(data==null || data.size() == 0) {
             Alert a = new Alert(Alert.AlertType.CONFIRMATION);
@@ -127,36 +131,6 @@ public class AdminController extends Controller{
         u_user.setCellValueFactory(new PropertyValueFactory<>("userName"));
         u_password.setCellValueFactory(new PropertyValueFactory<>("password"));
         u_identity.setCellValueFactory(new PropertyValueFactory<>("identity"));
-//        u_identity.setCellFactory(col-> {
-//                    TableCell<Person, Integer> cell = new TableCell<Person, Integer>() {
-//                        @Override
-//                        public void updateItem(Integer item, boolean empty) {
-//                            super.updateItem(item, empty);
-//                            //按钮显示文字
-//                            Button button = new Button(" ");
-//                            u_identity.setStyle("-fx-text-align-:center");
-//                            //设置按钮颜色
-//                            button.setStyle("-fx-background-color: #00bcff;-fx-text-fill: #ffffff;");
-//                            //按钮点击事件
-//                            button.setOnMouseClicked((col) -> {
-//                                //获取list列表中的位置，进而获取列表对应的信息数据
-//                                //p.Delete();
-//                                //user.remove(getIndex());
-//                            });
-//                            if (empty) {
-//                                //如果此列为空默认不添加元素
-//                                setText(null);
-//                                setGraphic(null);
-//                            } else {
-//                                //加载按钮
-//                                this.setGraphic(button);
-//                            }
-//                        }
-//                    };
-//                    return cell;
-//                }
-//        );
-
         u_delete.setCellFactory(col-> {
                     TableCell<Person, String> cell = new TableCell<Person, String>() {
                         @Override
@@ -173,6 +147,7 @@ public class AdminController extends Controller{
                                 Person p = user.get(getIndex());
                                 p.Delete();
                                 user.remove(getIndex());
+                                uResult.add(ft.format(new Date())+" 删除成功！");
                             });
                             if (empty) {
                                 //如果此列为空默认不添加元素
@@ -266,11 +241,19 @@ public class AdminController extends Controller{
     public void addUser(ActionEvent actionEvent) {
         if(a_username.getText()!=null||a_password.getText()!=null||a_identity.getValue()!=null){
             int identity=a_identity.getValue().toString().equals("管理员")?1:0;
-            System.out.println(new Person(a_username.getText(),a_password.getText(),identity).add());
+            Person p=new Person(a_username.getText(),a_password.getText(),identity);
+            if(p.add()){
+                uResult.add(ft.format(new Date())+p.getUserName()+"\n 添加成功\n");
+            }else {
+                uResult.add("添加失败-->用户名已存在！");
+            }
             uRefresh();
         }
         else {
-            System.out.println("输入不全！");
+            Alert a=new Alert(Alert.AlertType.ERROR);
+            a.setTitle("系统消息");
+            a.setHeaderText("输入为空");
+            a.show();
         }
     }
 }
