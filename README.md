@@ -63,6 +63,6 @@ SORT varchar(255) not null);
 ```mysql
 create table user(
 USERNAME varchar(20) not null primary key auto_increment,
-PASSWORD vharchar(16) not null,
+PASSWORD varchar(16) not null,
 IDENTITY bit(1) not null);
 ```
