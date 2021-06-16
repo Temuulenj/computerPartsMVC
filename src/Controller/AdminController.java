@@ -25,6 +25,8 @@ import javafx.util.Callback;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AdminController extends Controller{
     public TextField p1_id;
@@ -47,14 +49,13 @@ public class AdminController extends Controller{
     public TableColumn u_password;
     public TableColumn u_delete;
     public TableColumn u_identity;
-
+    final String jc="^[1-9]\\d*$";
     //消息队列
     public ListView<String> lv=new ListView<>();
     public TextField a_username;
     public TextField a_password;
     public ComboBox a_identity;
     public ListView u_lv;
-
     ObservableList<String> uResult=FXCollections.observableArrayList();
     ObservableList<Parts> data=null;
     ObservableList<String> result = FXCollections.observableArrayList();
@@ -164,7 +165,6 @@ public class AdminController extends Controller{
         );
         u_table.setItems(user);
     }
-
     //刷新
     public void Refresh() {
         data = new Parts().getData();
@@ -175,7 +175,6 @@ public class AdminController extends Controller{
         user=new Person().getData();
         u_table.setItems(user);
     }
-
     void init() {
         Parent root = null;
         try {
@@ -192,12 +191,27 @@ public class AdminController extends Controller{
         }
     }
 
+    //是否数字
+    public boolean isMatches(String bot){
+        try{
+            String regex="^[1-9]+[0-9]*$";
+            //^[1-9]+\\d*$
+            Pattern p=Pattern.compile(regex);
+            Matcher m=p.matcher(bot);
+            if(m.find()){
+                return true;
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public void insert(ActionEvent actionEvent) {
-        if(p1_id.getText().length()<1||p1_name.getText().length()<1||p1_num.getText().length()<1||p1_sort.getValue()==null){
+        if(p1_id.getText().length()<1||p1_name.getText().length()<1||p1_unitPrise.getText().length()<1||p1_num.getText().length()<1||p1_sort.getValue()==null||!isMatches(p1_id.getText())||!isMatches(p1_unitPrise.getText())||!isMatches(p1_num.getText())){
             Alert a=new Alert(Alert.AlertType.ERROR);
             a.setTitle("错 误");
-            a.setHeaderText("输入为空");
-            a.setContentText("");
+            a.setHeaderText("输入不合法");
             a.show();
             return;
         }
@@ -205,7 +219,7 @@ public class AdminController extends Controller{
         String inResult=p.Insert();
         if(inResult.equals("入库成功！\n")){
             p=new PartsDAO().getParts(p.getId());
-            result.add(ft.format(new Date())+"\n 入库成功!\n"+p.getId()+p.getName()+" "+p.getUnitPrise()+" "+p.getAmount()+" "+p.getSort()+"\n");
+            result.add(ft.format(new Date())+"\n编号："+p.getId()+" 名称："+p.getName()+" 单价："+p.getUnitPrise()+"\n"+"入库成功!\n");
         }
         else{
             result.add(ft.format(new Date())+"\n"+inResult);
@@ -220,10 +234,10 @@ public class AdminController extends Controller{
     }
 
     public void Out(ActionEvent actionEvent) {
-        if (o_sort.getValue()==null||o_amount.getText().length()<1||o_value.getText().length()<1){
+        if (o_sort.getValue()==null||o_amount.getText().length()<1||o_value.getText().length()<1||!isMatches(o_amount.getText())){
             Alert a=new Alert(Alert.AlertType.ERROR);
             a.setTitle("错 误");
-            a.setHeaderText("输入为空");
+            a.setHeaderText("输入不合法");
             a.show();
             return;
         }
@@ -234,7 +248,8 @@ public class AdminController extends Controller{
             a.setTitle("消息");
             a.setTitle("出库成功！");
             a.show();
-        };
+            result.add(ft.format(new Date())+"\n出库成功！\n"+"商品编号："+p.getId()+" 商品数量："+o_amount.getText());
+        }
         Refresh();
     }
 
@@ -243,7 +258,7 @@ public class AdminController extends Controller{
             int identity=a_identity.getValue().toString().equals("管理员")?1:0;
             Person p=new Person(a_username.getText(),a_password.getText(),identity);
             if(p.add()){
-                uResult.add(ft.format(new Date())+p.getUserName()+"\n 添加成功\n");
+                uResult.add(ft.format(new Date())+"\n用户名："+p.getUserName()+"\n添加成功");
             }else {
                 uResult.add("添加失败-->用户名已存在！");
             }
@@ -252,7 +267,7 @@ public class AdminController extends Controller{
         else {
             Alert a=new Alert(Alert.AlertType.ERROR);
             a.setTitle("系统消息");
-            a.setHeaderText("输入为空");
+            a.setHeaderText("输入不合法");
             a.show();
         }
     }
