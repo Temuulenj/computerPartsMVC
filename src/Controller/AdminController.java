@@ -4,6 +4,7 @@ import DAO.PartsDAO;
 import Model.Parts;
 import Model.Person;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,6 +53,10 @@ public class AdminController extends Controller{
     public ListView u_lv;
     public ComboBox Select;
     public TextField s_value;
+    public Button out_btn;
+    public Button searchbtn;
+    public Button insert_btn;
+    public ComboBox selectBtn;
     ObservableList<String> uResult=FXCollections.observableArrayList();
     ObservableList<Parts> data=null;
     ObservableList<String> result = FXCollections.observableArrayList();
@@ -69,6 +74,8 @@ public class AdminController extends Controller{
         Select.setItems(FXCollections.observableArrayList("全部","编号","名称"));
         //身份选择
         a_identity.setItems(FXCollections.observableArrayList("管理员","用户"));
+        //选择功能
+        selectBtn.setItems(FXCollections.observableArrayList("    入          库","    查          找","    出          库"));
         data = new Parts().getData();
         //消息
         result.add(ft.format(new Date())+"  系统消息  \n");
@@ -210,6 +217,7 @@ public class AdminController extends Controller{
         u_table.setEditable(true);
         u_password.setCellFactory(TextFieldTableCell.forTableColumn());
 
+
     }
 
     //刷新
@@ -305,7 +313,7 @@ public class AdminController extends Controller{
             a.setTitle("消息");
             a.setTitle("出库成功！");
             a.show();
-            result.add(ft.format(new Date())+"\n出库成功！\n"+"商品编号："+p.getId()+" 商品数量："+o_amount.getText());
+            result.add(ft.format(new Date())+"\n"+"商品编号："+p.getId()+" 商品数量："+o_amount.getText()+"\n出库成功！");
         }
         Refresh();
     }
@@ -363,5 +371,116 @@ public class AdminController extends Controller{
             }
         }
         table.setItems(list);
+    }
+
+    public void searchBtn() {
+        out_btn.setVisible(false);
+        out_btn.setDisable(true);
+        o_value.setVisible(false);
+        o_value.setDisable(true);
+        o_amount.setVisible(false);
+        o_amount.setDisable(true);
+        o_sort.setVisible(false);
+        o_sort.setDisable(true);
+
+        searchbtn.setVisible(true);
+        searchbtn.setDisable(false);
+        s_value.setVisible(true);
+        s_value.setDisable(false);
+        Select.setVisible(true);
+        Select.setDisable(false);
+
+        insert_btn.setVisible(false);
+        insert_btn.setDisable(true);
+        p1_id.setVisible(false);
+        p1_id.setDisable(true);
+        p1_name.setVisible(false);
+        p1_name.setDisable(true);
+        p1_num.setVisible(false);
+        p1_num.setDisable(true);
+        p1_unitPrise.setVisible(false);
+        p1_unitPrise.setDisable(true);
+        p1_sort.setVisible(false);
+        p1_sort.setDisable(true);
+    }
+
+    public void insertBtn() {
+        out_btn.setVisible(false);
+        out_btn.setDisable(true);
+        o_value.setVisible(false);
+        o_value.setDisable(true);
+        o_amount.setVisible(false);
+        o_amount.setDisable(true);
+        o_sort.setVisible(false);
+        o_sort.setDisable(true);
+
+        searchbtn.setVisible(false);
+        searchbtn.setDisable(true);
+        s_value.setVisible(false);
+        s_value.setDisable(true);
+        Select.setVisible(false);
+        Select.setDisable(true);
+
+        insert_btn.setVisible(true);
+        insert_btn.setDisable(false);
+        p1_id.setVisible(true);
+        p1_id.setDisable(false);
+        p1_name.setVisible(true);
+        p1_name.setDisable(false);
+        p1_num.setVisible(true);
+        p1_num.setDisable(false);
+        p1_unitPrise.setVisible(true);
+        p1_unitPrise.setDisable(false);
+        p1_sort.setVisible(true);
+        p1_sort.setDisable(false);
+    }
+
+    public void outBtn() {
+        out_btn.setVisible(true);
+        out_btn.setDisable(false);
+        o_value.setVisible(true);
+        o_value.setDisable(false);
+        o_amount.setVisible(true);
+        o_amount.setDisable(false);
+        o_sort.setVisible(true);
+        o_sort.setDisable(false);
+
+        searchbtn.setVisible(false);
+        searchbtn.setDisable(true);
+        s_value.setVisible(false);
+        s_value.setDisable(true);
+        Select.setVisible(false);
+        Select.setDisable(true);
+
+        insert_btn.setVisible(false);
+        insert_btn.setDisable(true);
+        p1_id.setVisible(false);
+        p1_id.setDisable(true);
+        p1_name.setVisible(false);
+        p1_name.setDisable(true);
+        p1_num.setVisible(false);
+        p1_num.setDisable(true);
+        p1_unitPrise.setVisible(false);
+        p1_unitPrise.setDisable(true);
+        p1_sort.setVisible(false);
+        p1_sort.setDisable(true);
+    }
+
+    public void Selectbtn(ActionEvent actionEvent) {
+        switch (selectBtn.getValue().toString()){
+            case "    入          库":{
+                insertBtn();
+                break;
+            }
+            case "    出          库":{
+                outBtn();
+                break;
+            }
+            case "    查          找":{
+                searchBtn();
+                break;
+            }
+            default:break;
+        }
     }
 }
