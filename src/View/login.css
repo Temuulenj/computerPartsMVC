@@ -11,11 +11,12 @@
     -fx-effect: dropshadow(gaussian, black, 50, 1, 30, 30);
 }
 
-#logup,#back{
+#logUp,#back{
+    -fx-effect: null;
     -fx-border-color: rgba(89,98,249,1);
     -fx-text-fill: rgba(89,98,249,1);
 }
-#logup:hover,#back:hover{
+#logUp:hover,#back:hover{
     -fx-border-color: rgba(89,98,249,1);
     -fx-translate-x:50px;
     -fx-effect: dropshadow(gaussian, black, 5, 0, 3, 3);

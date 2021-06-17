@@ -12,12 +12,12 @@ public class login extends Controller{
     public TextField UserName;
     public PasswordField Password;
     public Button Login;
-    public Button logup;
+    public Button logUp;
     public Button back;
 
     @FXML
     private void initialize(){
-        logup.setOnAction(event -> Logup());
+        logUp.setOnAction(event -> Logup());
         Login.setOnAction(event -> {
             if(Login.getText().equals("登            录")) {
                 Login();
@@ -34,10 +34,10 @@ public class login extends Controller{
                 Logup();
             }
         });
-        logup.setOnAction(e->{
+        logUp.setOnAction(e->{
             Login.setText("注            册");
-            logup.setVisible(false);
-            logup.setDisable(true);
+            logUp.setVisible(false);
+            logUp.setDisable(true);
             back.setDisable(false);
             back.setVisible(true);
         });
@@ -45,8 +45,8 @@ public class login extends Controller{
             Login.setText("登            录");
             back.setDisable(true);
             back.setVisible(false);
-            logup.setVisible(true);
-            logup.setDisable(false);
+            logUp.setVisible(true);
+            logUp.setDisable(false);
         });
     }
 
