@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -10,13 +12,13 @@
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@admin.css">
                      <children>
-                        <TextField fx:id="p1_id" layoutX="345.0" layoutY="614.0" prefHeight="30.0" prefWidth="145.0" promptText="商品编号" stylesheets="@admin.css" />
-                        <TextField fx:id="p1_name" layoutX="494.0" layoutY="614.0" prefHeight="30.0" prefWidth="145.0" promptText="商品名称" stylesheets="@admin.css" />
-                        <TextField fx:id="p1_unitPrise" layoutX="648.0" layoutY="614.0" prefHeight="30.0" prefWidth="145.0" promptText="商品单价" stylesheets="@admin.css" />
-                        <TextField fx:id="p1_num" layoutX="800.0" layoutY="614.0" prefHeight="30.0" prefWidth="145.0" promptText="入库数量" stylesheets="@admin.css" />
-                        <ComboBox fx:id="p1_sort" layoutX="954.0" layoutY="615.0" prefHeight="30.0" prefWidth="145.0" promptText="商品类型" stylesheets="@admin.css" />
-                        <Button fx:id="insert_btn" layoutX="1106.0" layoutY="614.0" mnemonicParsing="false" onAction="#insert" prefHeight="30.0" prefWidth="145.0" stylesheets="@admin.css" text="入   库" />
-                        <TableView fx:id="table" layoutX="345.0" layoutY="70.0" prefHeight="521.0" prefWidth="910.0" stylesheets="@admin.css">
+                        <TextField fx:id="p1_id" layoutX="343.0" layoutY="628.0" prefHeight="30.0" prefWidth="145.0" promptText="商品编号" stylesheets="@admin.css" />
+                        <TextField fx:id="p1_name" layoutX="492.0" layoutY="628.0" prefHeight="30.0" prefWidth="145.0" promptText="商品名称" stylesheets="@admin.css" />
+                        <TextField fx:id="p1_unitPrise" layoutX="646.0" layoutY="628.0" prefHeight="30.0" prefWidth="145.0" promptText="商品单价" stylesheets="@admin.css" />
+                        <TextField fx:id="p1_num" layoutX="798.0" layoutY="628.0" prefHeight="30.0" prefWidth="145.0" promptText="入库数量" stylesheets="@admin.css" />
+                        <ComboBox fx:id="p1_sort" layoutX="952.0" layoutY="629.0" prefHeight="30.0" prefWidth="145.0" promptText="商品类型" stylesheets="@admin.css" />
+                        <Button fx:id="insert_btn" layoutX="1104.0" layoutY="628.0" mnemonicParsing="false" onAction="#insert" prefHeight="30.0" prefWidth="145.0" stylesheets="@admin.css" text="入   库" />
+                        <TableView fx:id="table" layoutX="345.0" layoutY="62.0" prefHeight="555.0" prefWidth="910.0" stylesheets="@admin.css">
                           <columns>
                             <TableColumn fx:id="c_id" prefWidth="75.0" text="商品编号" />
                             <TableColumn fx:id="c_name" onEditCommit="#update" prefWidth="75.0" text="商品名称" />
@@ -29,15 +31,15 @@
                               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                            </columnResizePolicy>
                         </TableView>
-                        <ComboBox fx:id="o_sort" layoutX="376.0" layoutY="614.0" prefWidth="150.0" promptText="类型" stylesheets="@admin.css" visible="false" />
-                        <TextField fx:id="o_value" layoutX="596.0" layoutY="614.0" promptText="值" visible="false" />
-                        <TextField fx:id="o_amount" layoutX="858.0" layoutY="614.0" promptText="出库数量" visible="false" />
-                        <Button fx:id="out_btn" disable="true" layoutX="1106.0" layoutY="614.0" mnemonicParsing="false" onAction="#Out" prefHeight="30.0" prefWidth="143.0" stylesheets="@admin.css" text="出   库" visible="false" />
+                        <ComboBox fx:id="o_sort" layoutX="374.0" layoutY="628.0" prefWidth="150.0" promptText="类型" stylesheets="@admin.css" visible="false" />
+                        <TextField fx:id="o_value" layoutX="594.0" layoutY="628.0" promptText="值" visible="false" />
+                        <TextField fx:id="o_amount" layoutX="856.0" layoutY="628.0" promptText="出库数量" visible="false" />
+                        <Button fx:id="out_btn" disable="true" layoutX="1104.0" layoutY="628.0" mnemonicParsing="false" onAction="#Out" prefHeight="30.0" prefWidth="143.0" stylesheets="@admin.css" text="出   库" visible="false" />
                         <ListView fx:id="lv" layoutX="15.0" layoutY="19.0" prefHeight="641.0" prefWidth="313.0" />
-                        <ComboBox fx:id="Select" layoutX="384.0" layoutY="614.0" prefHeight="32.0" prefWidth="218.0" promptText="查找类型" visible="false" />
-                        <TextField fx:id="s_value" layoutX="743.0" layoutY="614.0" promptText="值" visible="false" />
-                        <Button fx:id="searchbtn" disable="true" layoutX="1106.0" layoutY="614.0" mnemonicParsing="false" onAction="#Search" prefHeight="30.0" prefWidth="145.0" text="查   找" visible="false" />
-                        <ComboBox fx:id="selectBtn" layoutX="343.0" layoutY="19.0" onAction="#Selectbtn" prefWidth="150.0" promptText="    入          库" style="-fx-border-color: blue;" />
+                        <ComboBox fx:id="Select" layoutX="382.0" layoutY="628.0" prefHeight="32.0" prefWidth="218.0" promptText="查找类型" visible="false" />
+                        <TextField fx:id="s_value" layoutX="741.0" layoutY="628.0" promptText="值" visible="false" />
+                        <Button fx:id="searchbtn" disable="true" layoutX="1104.0" layoutY="628.0" mnemonicParsing="false" onAction="#Search" prefHeight="30.0" prefWidth="145.0" text="查   找" visible="false" />
+                        <ComboBox fx:id="selectBtn" layoutX="345.0" layoutY="19.0" onAction="#Selectbtn" prefWidth="150.0" promptText="    入          库" style="-fx-border-color: blue;" />
                      </children>
                   </AnchorPane>
                </content>
