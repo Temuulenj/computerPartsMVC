@@ -53,7 +53,7 @@
                         <TableView fx:id="u_table" layoutX="345.0" layoutY="22.0" prefHeight="588.0" prefWidth="910.0" stylesheets="@admin.css">
                           <columns>
                             <TableColumn fx:id="u_user" prefWidth="75.0" text="用户名" />
-                            <TableColumn fx:id="u_password" prefWidth="75.0" text="密码" />
+                            <TableColumn fx:id="u_password" onEditCommit="#uupdate" prefWidth="75.0" text="密码" />
                               <TableColumn fx:id="u_identity" prefWidth="75.0" text="身份" />
                               <TableColumn fx:id="u_delete" prefWidth="75.0" text="删除" />
                           </columns>

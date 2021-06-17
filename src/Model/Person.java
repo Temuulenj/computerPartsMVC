@@ -26,6 +26,10 @@ public class Person {
         return null;
     }
 
+    public boolean update(){
+        return new UserDAO().update(this);
+    }
+
     public boolean add(){
         return new UserDAO().addUser(this);
     }

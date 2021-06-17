@@ -50,6 +50,23 @@ public class UserDAO extends DAO{
         return rs.getInt("Identity");
     }
 
+    public boolean update(Person p){
+        if(!haveUsername(p.getUserName())){
+            System.out.println("用户名不存在");
+            return false;
+        }
+        conn=getConn();
+        SQL="UPDATE user set Password =? where UserName=?";
+        try{
+            preStr=conn.prepareStatement(SQL);
+            preStr.setString(1,p.getPassword());
+            preStr.setString(2,p.getUserName());
+            return !preStr.execute();
+        } catch (SQLException e){
+            return false;
+        }
+    }
+
     public boolean addUser(Person p){
         if(haveUsername(p.getUserName())) {
             System.out.println("用户名已存在！");

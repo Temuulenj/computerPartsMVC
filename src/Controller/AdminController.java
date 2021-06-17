@@ -44,7 +44,6 @@ public class AdminController extends Controller{
     public TableColumn u_password;
     public TableColumn u_delete;
     public TableColumn u_identity;
-    final String jc="^[1-9]\\d*$";
     //消息队列
     public ListView<String> lv=new ListView<>();
     public TextField a_username;
@@ -156,6 +155,8 @@ public class AdminController extends Controller{
                 }
         );
         u_table.setItems(user);
+        u_table.setEditable(true);
+        u_password.setCellFactory(TextFieldTableCell.forTableColumn());
     }
     //刷新
     public void Refresh() {
@@ -222,7 +223,16 @@ public class AdminController extends Controller{
     public void update(TableColumn.CellEditEvent cellEditEvent) {
         Parts p= data.get(cellEditEvent.getTablePosition().getRow());
         p.setName(cellEditEvent.getNewValue().toString());
-        System.out.println(new PartsDAO().Update(p));
+        if(p.update()){
+            result.add(ft.format(new Date())+"\n数据更新成功！");
+        };
+    }
+    public void uupdate(TableColumn.CellEditEvent cellEditEvent) {
+        Person p=user.get(cellEditEvent.getTablePosition().getRow());
+        p.setPassword(cellEditEvent.getNewValue().toString());
+        if(p.update()){
+            uResult.add(ft.format(new Date())+"\n修改成功！");
+        };
     }
 
     public void Out(ActionEvent actionEvent) {

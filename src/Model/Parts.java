@@ -43,6 +43,9 @@ public class Parts {
         }
     }
 
+    public boolean update(){
+        return new PartsDAO().Update(this);
+    }
 
     public boolean Delete(){
         return new PartsDAO().Delete(this.id);
