@@ -50,6 +50,8 @@ public class AdminController extends Controller{
     public TextField a_password;
     public ComboBox a_identity;
     public ListView u_lv;
+    public ComboBox Select;
+    public TextField s_value;
     ObservableList<String> uResult=FXCollections.observableArrayList();
     ObservableList<Parts> data=null;
     ObservableList<String> result = FXCollections.observableArrayList();
@@ -63,6 +65,8 @@ public class AdminController extends Controller{
         p1_sort.setItems(FXCollections.observableArrayList("CPU", "显卡", "内存","主板","硬盘"));
         //出库类型
         o_sort.setItems(FXCollections.observableArrayList("编号"));
+        //查找类型
+        Select.setItems(FXCollections.observableArrayList("全部","编号","名称"));
         //身份选择
         a_identity.setItems(FXCollections.observableArrayList("管理员","用户"));
         //消息
@@ -272,5 +276,41 @@ public class AdminController extends Controller{
             a.setHeaderText("输入不合法");
             a.show();
         }
+    }
+
+    public void Search(ActionEvent actionEvent) {
+        String s=Select.getValue().toString();
+        if (s_value.getText().length()<1){
+            return;
+        }
+        ObservableList<Parts> list=FXCollections.observableArrayList();
+        switch (s){
+            case "编号":{
+                if(!isMatches(s_value.getText())){
+                    return;
+                }
+                for (Parts p:data){
+                    if (p.getId()==Integer.parseInt(s_value.getText())){
+                        try {
+                            list.add(p);
+                        } catch (NullPointerException E){return;};
+                    }
+                }
+                break;
+            }
+            case "名称":{
+                for(Parts p:data){
+                    try {
+                        list.add(p);
+                    } catch (NullPointerException E){return;};
+                }
+                break;
+            }
+            default:{
+                table.setItems(data);
+                return;
+            }
+        }
+        table.setItems(list);
     }
 }
