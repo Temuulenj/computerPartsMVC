@@ -1,34 +1,33 @@
 .text-field{
-    -fx-border-color: rgba(89,98,249,0.2);
+    -fx-border-color: rgba(0,150,201,0.2);
     -fx-border-radius: 50px;
     -fx-background-color: rgba(0,0,0,0);
 }
 .text-field:hover,.text-field:focused{
-    -fx-border-color: rgba(89,98,249,1);
+    -fx-border-color: rgba(0,150,201,1);
     -fx-effect: dropshadow(gaussian, black, 3, 0, 3, 3);
 }
 .pane{
     -fx-effect: dropshadow(gaussian, black, 50, 1, 30, 30);
 }
-
 #logUp,#back{
     -fx-effect: null;
-    -fx-border-color: rgba(89,98,249,1);
-    -fx-text-fill: rgba(89,98,249,1);
+    -fx-border-color: rgba(0,150,201,1);
+    -fx-text-fill: rgba(0,150,201,1);
 }
 #logUp:hover,#back:hover{
-    -fx-border-color: rgba(89,98,249,1);
+    -fx-border-color: rgba(0,150,201,1);
     -fx-translate-x:50px;
     -fx-effect: dropshadow(gaussian, black, 5, 0, 3, 3);
 }
 .button{
-    -fx-background-color: rgba(89,98,249,0);
+    -fx-background-color: rgba(0,150,201,0);
     -fx-border-radius: 50px;
-    -fx-border-color: rgba(89,98,249,1);
+    -fx-border-color: rgba(0,150,201,1);
     -fx-background-radius: 50px;
 }
 .button:hover,.button:focused{
-    -fx-border-color-: rgba(89,98,249,1);
+    -fx-border-color-: rgba(0,150,201,1);
     -fx-translate-x: -2;
     -fx-translate-y: -2;
     -fx-effect: dropshadow(gaussian, black, 5, 0, 3, 3);
