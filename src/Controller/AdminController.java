@@ -69,11 +69,60 @@ public class AdminController extends Controller{
         Select.setItems(FXCollections.observableArrayList("全部","编号","名称"));
         //身份选择
         a_identity.setItems(FXCollections.observableArrayList("管理员","用户"));
+        data = new Parts().getData();
         //消息
+        result.add(ft.format(new Date())+"  系统消息  \n");
+        //货少时警告
+        //"CPU", "显卡", "内存","主板","硬盘"
+        int i1=0,i2=0,i3=0,i4=0,i5=0;//个数
+        int t1=0,t2=0,t3=0,t4=0,t5=0;//价值
+        String s="缺货警告：\n";
+        for(Parts p:data){
+            switch (p.getSort()){
+                case "CPU": {
+                    i1 += p.getAmount();
+                    t1 += p.getUnitPrise() * p.getAmount();
+                    break;
+                }
+                case "显卡":{
+                    i2+=p.getAmount();
+                    t2+=p.getUnitPrise()*p.getAmount();
+                    break;
+                }
+                case "内存":{
+                    i3+=p.getAmount();
+                    t3+=p.getUnitPrise()*p.getAmount();
+                    break;
+                }
+                case "主板":{
+                    i4+=p.getAmount();
+                    t4+=p.getUnitPrise()*p.getAmount();
+                    break;
+                }
+                case "硬盘":{
+                    i5+=p.getAmount();
+                    t5+=p.getUnitPrise()*p.getAmount();
+                    break;
+                }
+                default:break;
+            }
+            if (p.getAmount()<100){
+                s=s+p.getName()+" 库存还有："+p.getAmount()+"\n";
+            }
+        }
+        s=s+"--------------------------------------------";
+        result.add(s);
+        //库存统计
+        result.add("库存统计\n"+
+                "CPU共有 "+i1+"个,"+"总价值："+t1+"元\n"+
+                "显卡共有 "+i2+"\t个,"+"总价值："+t2+"元\n"+
+                "内存共有 "+i3+"\t个,"+"总价值："+t3+"元\n"+
+                "主板共有 "+i4+"\t个,"+"总价值："+t4+"元\n"+
+                "硬盘共有 "+i5+"\t个,"+"总价值："+t5+"元\n"+
+                "--------------------------------------------");
         lv.setItems(result);
         //用户消息
         u_lv.setItems(uResult);
-        data = new Parts().getData();
         if(data==null || data.size() == 0) {
             Alert a = new Alert(Alert.AlertType.CONFIRMATION);
             a.setTitle("系统消息");
@@ -123,7 +172,6 @@ public class AdminController extends Controller{
                     return cell;
                 }
         );
-
         //用户表
         u_user.setCellValueFactory(new PropertyValueFactory<>("userName"));
         u_password.setCellValueFactory(new PropertyValueFactory<>("password"));
@@ -161,7 +209,9 @@ public class AdminController extends Controller{
         u_table.setItems(user);
         u_table.setEditable(true);
         u_password.setCellFactory(TextFieldTableCell.forTableColumn());
+
     }
+
     //刷新
     public void Refresh() {
         data = new Parts().getData();
@@ -231,12 +281,13 @@ public class AdminController extends Controller{
             result.add(ft.format(new Date())+"\n数据更新成功！");
         };
     }
+
     public void uupdate(TableColumn.CellEditEvent cellEditEvent) {
         Person p=user.get(cellEditEvent.getTablePosition().getRow());
         p.setPassword(cellEditEvent.getNewValue().toString());
         if(p.update()){
             uResult.add(ft.format(new Date())+"\n修改成功！");
-        };
+        }
     }
 
     public void Out(ActionEvent actionEvent) {
